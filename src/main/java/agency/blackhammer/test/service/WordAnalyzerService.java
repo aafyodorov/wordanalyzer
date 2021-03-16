@@ -18,20 +18,23 @@ public class WordAnalyzerService {
 
   public static Pair getMostFrequentLetterInWord(@NotNull String word) {
     if (word.length() == 0) {
-      throw new IllegalArgumentException("Word is too short.");
+      throw new IllegalArgumentException("Parameter 'word' cannot be zero length");
 	}
     Map<Character, Integer> occurrences = new HashMap<>();
     Pair mostFrequentLetter = new Pair(null, 0);
-	word.chars().forEach((c) -> {
-      if (!occurrences.containsKey((char) c)) {
+    char c;
+
+	for (int i = word.length() - 1; i >= 0; --i) {
+	  c = word.charAt(i);
+      if (!occurrences.containsKey(c)) {
         int count = StringUtils.countOccurrencesOf(word, Character.toString(c));
-        occurrences.put((char) c, count);
-        if (count >= mostFrequentLetter.getValue()) {
-          mostFrequentLetter.setKey((char) c);
+        occurrences.put(c, count);
+        if (count > mostFrequentLetter.getValue()) {
+          mostFrequentLetter.setKey(c);
           mostFrequentLetter.setValue(count);
 		}
 	  }
-	});
+	}
     return mostFrequentLetter;
   }
 }

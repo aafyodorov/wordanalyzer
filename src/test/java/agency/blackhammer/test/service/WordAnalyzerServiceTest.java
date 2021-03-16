@@ -23,6 +23,13 @@ class WordAnalyzerServiceTest {
   }
 
   @Test
+  public void getMostFrequentLetterInWord() {
+    Pair pair = WordAnalyzerService.getMostFrequentLetterInWord("trester");
+    assertEquals('r', pair.getKey());
+    assertEquals(2, pair.getValue());
+  }
+
+  @Test
   public void getMostFrequentLetterInWord_zeroLengthWord_IllegalArgumentException() {
     assertThrows(IllegalArgumentException.class, () -> WordAnalyzerService.getMostFrequentLetterInWord(""));
   }
